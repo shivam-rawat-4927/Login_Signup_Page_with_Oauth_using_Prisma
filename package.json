@@ -1,22 +1,22 @@
 {
   "name": "login_signup_page_with_oauth_using_prisma",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Full-stack Login/Signup application with React.js frontend and Express.js backend using Prisma ORM and MySQL",
+  "main": "backend/index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "cd backend && npm start",
+    "server": "cd backend && npm run dev",
+    "client": "cd frontend && npm start",
+    "build": "cd frontend && npm run build",
+    "install-deps": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "setup": "npm run install-deps && cd backend && npx prisma generate && npx prisma migrate dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["react", "express", "prisma", "mysql", "authentication", "fullstack"],
+  "author": "Shivam Rawat",
   "license": "ISC",
-  "description": "Login/Signup page with OAuth integration using Prisma ORM",
-  "dependencies": {
-    "express": "^4.18.2",
-    "prisma": "^5.0.0",
-    "@prisma/client": "^5.0.0"
-  },
   "devDependencies": {
-    "nodemon": "^3.0.0"
+    "concurrently": "^8.2.0"
   }
 }
