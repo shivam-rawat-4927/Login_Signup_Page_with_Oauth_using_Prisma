@@ -49,7 +49,7 @@ function Login({ onLogin }) {
       <div className="auth-card">
         <div className="auth-header">
           <h2>Welcome Back</h2>
-          <p>Sign in to your account</p>
+          <p>Login to your account</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
@@ -86,7 +86,7 @@ function Login({ onLogin }) {
             className="auth-button"
             disabled={loading}
           >
-            {loading ? 'Signing in...' : 'Sign In'}
+            {loading ? 'Authenticating...' : 'Login'}
           </button>
         </form>
 

@@ -58,8 +58,8 @@ function Signup({ onLogin }) {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-header">
-          <h2>Create Account</h2>
-          <p>Sign up for a new account</p>
+          <h2>Create an account</h2>
+          <p>Welcome! Please fill in the details to get started</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
@@ -147,14 +147,14 @@ function Signup({ onLogin }) {
             className="auth-button"
             disabled={loading}
           >
-            {loading ? 'Creating Account...' : 'Sign Up'}
+            {loading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
 
         <div className="auth-footer">
           <p>
             Already have an account? 
-            <Link to="/login" className="auth-link"> Sign in</Link>
+            <Link to="/login" className="auth-link"> Login</Link>
           </p>
         </div>
       </div>
