@@ -24,7 +24,7 @@ const Dashboard = ({ user, onLogout }) => {
         </div>
 
         <div className="user-info-section">
-          <h3>Your Profile Information</h3>
+          <h3>Profile Information</h3>
           <div className="user-info-card">
             <div className="info-item">
               <label>Full Name:</label>
