@@ -49,7 +49,7 @@ function Login({ onLogin }) {
       <div className="auth-card">
         <div className="auth-header">
           <h2>Welcome Back</h2>
-          <p>Login to your account</p>
+          <p>Log in to your account</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
@@ -64,7 +64,7 @@ function Login({ onLogin }) {
               value={formData.email}
               onChange={handleChange}
               required
-              placeholder="Enter your email"
+              placeholder="johndoe@email.com"
             />
           </div>
 
@@ -77,7 +77,7 @@ function Login({ onLogin }) {
               value={formData.password}
               onChange={handleChange}
               required
-              placeholder="Enter your password"
+              placeholder="********"
             />
           </div>
 
