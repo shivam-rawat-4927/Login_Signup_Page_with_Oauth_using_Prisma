@@ -58,8 +58,8 @@ function Signup({ onLogin }) {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-header">
-          <h2>Create Account</h2>
-          <p>Sign up for a new account</p>
+          <h2>Create an account</h2>
+          <p>Welcome! Please fill in the details to get started</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
@@ -74,7 +74,7 @@ function Signup({ onLogin }) {
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
-                placeholder="First name"
+                placeholder="John"
               />
             </div>
             <div className="form-group">
@@ -85,7 +85,7 @@ function Signup({ onLogin }) {
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
-                placeholder="Last name"
+                placeholder="Doe"
               />
             </div>
           </div>
@@ -99,7 +99,7 @@ function Signup({ onLogin }) {
               value={formData.email}
               onChange={handleChange}
               required
-              placeholder="Enter your email"
+              placeholder="johndoe@email.com"
             />
           </div>
 
@@ -112,7 +112,7 @@ function Signup({ onLogin }) {
               value={formData.username}
               onChange={handleChange}
               required
-              placeholder="Choose a username"
+              placeholder="john_doe123"
             />
           </div>
 
@@ -125,7 +125,7 @@ function Signup({ onLogin }) {
               value={formData.password}
               onChange={handleChange}
               required
-              placeholder="Create a password"
+              placeholder="********"
             />
           </div>
 
@@ -138,7 +138,7 @@ function Signup({ onLogin }) {
               value={formData.confirmPassword}
               onChange={handleChange}
               required
-              placeholder="Confirm your password"
+              placeholder="********"
             />
           </div>
 
@@ -147,14 +147,14 @@ function Signup({ onLogin }) {
             className="auth-button"
             disabled={loading}
           >
-            {loading ? 'Creating Account...' : 'Sign Up'}
+            {loading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
 
         <div className="auth-footer">
           <p>
             Already have an account? 
-            <Link to="/login" className="auth-link"> Sign in</Link>
+            <Link to="/login" className="auth-link"> Login</Link>
           </p>
         </div>
       </div>

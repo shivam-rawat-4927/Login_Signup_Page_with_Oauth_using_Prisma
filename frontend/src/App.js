@@ -79,9 +79,9 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              isAuthenticated ?
-              <Dashboard user={user} onLogout={handleLogout} /> :
-              <Navigate to="/login" />
+              // isAuthenticated ?
+              <Dashboard user={user} onLogout={handleLogout} />   
+              // <Navigate to="/login" />
             }
           />
           <Route
