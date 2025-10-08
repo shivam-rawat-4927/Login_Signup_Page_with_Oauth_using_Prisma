@@ -1,4 +1,6 @@
 import React from 'react';
+import Navbar from './Navbar';
+import Footer from './Footer';
 import './Dashboard.css';
 
 const Dashboard = ({ user, onLogout }) => {
@@ -99,8 +101,73 @@ const Dashboard = ({ user, onLogout }) => {
     },
   ];
 
+  const achievementData = [
+    {
+      label: 'Profile completion',
+      value: `${fullName ? 82 : 64}%`,
+      detail: fullName ? 'Great job! Add a profile photo to reach 100%.' : 'Add your full name and avatar to boost completion.',
+      progress: fullName ? 82 : 64,
+    },
+    {
+      label: 'Security strength',
+      value: '68%',
+      detail: 'Secure password enabled. Turn on two-factor authentication next.',
+      progress: 68,
+    },
+    {
+      label: 'Notification health',
+      value: email !== 'Email not added' ? 'Custom alerts' : 'Action needed',
+      detail:
+        email !== 'Email not added'
+          ? 'You will only receive the alerts you care about.'
+          : 'Add an email so we can keep you in the loop.',
+      progress: email !== 'Email not added' ? 74 : 32,
+    },
+  ];
+
+  const preferenceToggles = [
+    {
+      label: 'Login notifications',
+      description: 'Alert me whenever a new device signs in to my account.',
+      enabled: true,
+    },
+    {
+      label: 'Weekly digest',
+      description: 'Send me a curated summary of important account activity.',
+      enabled: false,
+    },
+    {
+      label: 'Product updates',
+      description: 'Stay informed about new features before everyone else.',
+      enabled: true,
+    },
+  ];
+
+  const connectionApps = [
+    {
+      name: 'Google Workspace',
+      status: 'Connected',
+      hint: 'Used for calendar and contacts.',
+      accent: 'connected',
+    },
+    {
+      name: 'GitHub',
+      status: 'Connected',
+      hint: 'Scopes: profile, repositories.',
+      accent: 'connected',
+    },
+    {
+      name: 'Slack',
+      status: 'Pending',
+      hint: 'Finish OAuth approval to receive notifications.',
+      accent: 'pending',
+    },
+  ];
+
   return (
     <div className="dashboard-container">
+      <Navbar displayName={displayName} />
+
       <header className="dashboard-header">
         <div className="header-content">
           <div className="header-text">
@@ -223,7 +290,73 @@ const Dashboard = ({ user, onLogout }) => {
             </ul>
           </div>
         </section>
+
+        <section className="profile-progress" aria-label="Progress insights">
+          <div className="progress-grid">
+            {achievementData.map((item) => (
+              <div key={item.label} className="progress-card">
+                <div className="progress-header">
+                  <p className="progress-label">{item.label}</p>
+                  <span className="progress-value">{item.value}</span>
+                </div>
+                <div className="progress-track" aria-hidden="true">
+                  <div
+                    className="progress-meter"
+                    style={{ width: `${item.progress}%` }}
+                  />
+                </div>
+                <p className="progress-detail">{item.detail}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="profile-settings" aria-label="Preferences and connections">
+          <div className="panel-card preferences-card">
+            <h3>Notification preferences</h3>
+            <ul className="preference-list">
+              {preferenceToggles.map((pref) => (
+                <li key={pref.label} className="preference-item">
+                  <div className="preference-text">
+                    <p className="preference-label">{pref.label}</p>
+                    <p className="preference-description">{pref.description}</p>
+                  </div>
+                  <div
+                    className={`preference-toggle ${pref.enabled ? 'enabled' : 'disabled'}`}
+                    role="switch"
+                    aria-checked={pref.enabled}
+                    tabIndex={0}
+                  >
+                    <span className="toggle-track">
+                      <span className="toggle-thumb" />
+                    </span>
+                    <span className="toggle-state">{pref.enabled ? 'On' : 'Off'}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <button type="button" className="outline-button compact">Manage alerts</button>
+          </div>
+
+          <div className="panel-card connections-card">
+            <h3>Connected applications</h3>
+            <div className="connections-grid">
+              {connectionApps.map((app) => (
+                <div key={app.name} className={`connection-card ${app.accent}`}>
+                  <div className="connection-content">
+                    <p className="connection-name">{app.name}</p>
+                    <p className="connection-hint">{app.hint}</p>
+                  </div>
+                  <span className="connection-status">{app.status}</span>
+                </div>
+              ))}
+            </div>
+            <button type="button" className="ghost-button wide">Add new integration</button>
+          </div>
+        </section>
       </main>
+
+      <Footer />
     </div>
   );
 };
