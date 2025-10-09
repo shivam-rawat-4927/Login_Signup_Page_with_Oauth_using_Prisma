@@ -1,4 +1,5 @@
 import React from 'react';
+import { FiCalendar, FiShield, FiSettings, FiMail, FiClock, FiCheckCircle, FiSmile, FiAward, FiKey, FiZap } from 'react-icons/fi';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import './Dashboard.css';
@@ -35,19 +36,19 @@ const Dashboard = ({ user, onLogout }) => {
 
   const highlightCards = [
     {
-      icon: '🗓️',
+      Icon: FiCalendar,
       title: 'Member since',
       value: memberSince,
       hint: 'Thanks for being with us!',
     },
     {
-      icon: '🛡️',
+      Icon: FiShield,
       title: 'Security',
       value: email !== 'Email not added' ? 'Email confirmed' : 'Complete setup',
       hint: 'Keep your account protected.',
     },
     {
-      icon: '⚙️',
+      Icon: FiSettings,
       title: 'Login method',
       value: user?.authProvider ? user.authProvider.replace(/_/g, ' ') : 'Email & password',
       hint: 'Connect other services for easy sign-in.',
@@ -77,7 +78,7 @@ const Dashboard = ({ user, onLogout }) => {
 
   const activityTimeline = [
     {
-      icon: '🎉',
+      Icon: FiAward,
       title: 'Account created',
       description:
         user?.createdAt
@@ -85,7 +86,7 @@ const Dashboard = ({ user, onLogout }) => {
           : 'Complete your profile details to personalize your dashboard.',
     },
     {
-      icon: '🔑',
+      Icon: FiKey,
       title: 'Latest session',
       description: `Logged in on ${new Date().toLocaleString(undefined, {
         month: 'short',
@@ -95,7 +96,7 @@ const Dashboard = ({ user, onLogout }) => {
       })}.`,
     },
     {
-      icon: '💡',
+      Icon: FiZap,
       title: 'Next steps',
       description: 'Explore new features and connect your social accounts to sign in faster.',
     },
@@ -172,7 +173,10 @@ const Dashboard = ({ user, onLogout }) => {
         <div className="header-content">
           <div className="header-text">
             <p className="header-greeting">{greeting}</p>
-            <h1>Welcome back, {displayName} 👋</h1>
+            <h1>
+              Welcome back, {displayName}
+              <FiSmile className="inline-icon" aria-hidden="true" />
+            </h1>
             <p className="header-subtitle">
               Manage your profile, review account activity, and keep your security preferences up to date.
             </p>
@@ -198,8 +202,14 @@ const Dashboard = ({ user, onLogout }) => {
             </div>
             <p className="profile-username">{username}</p>
             <div className="profile-contacts">
-              <span>📧 {email}</span>
-              <span>📅 Joined {memberSince}</span>
+              <span>
+                <FiMail className="contact-icon" aria-hidden="true" />
+                {email}
+              </span>
+              <span>
+                <FiCalendar className="contact-icon" aria-hidden="true" />
+                Joined {memberSince}
+              </span>
             </div>
           </div>
           <div className="profile-actions">
@@ -221,7 +231,7 @@ const Dashboard = ({ user, onLogout }) => {
           <div className="stats-grid">
             {highlightCards.map((card) => (
               <div className="stat-card" key={card.title}>
-                <span className="stat-icon" aria-hidden="true">{card.icon}</span>
+                <card.Icon className="stat-icon" aria-hidden="true" />
                 <div className="stat-content">
                   <p className="stat-title">{card.title}</p>
                   <p className="stat-value">{card.value}</p>
@@ -263,9 +273,11 @@ const Dashboard = ({ user, onLogout }) => {
                   key={item.label}
                   className={`security-item ${item.complete ? 'complete' : 'pending'}`}
                 >
-                  <span className="security-status" aria-hidden="true">
-                    {item.complete ? '✅' : '🕒'}
-                  </span>
+                  {item.complete ? (
+                    <FiCheckCircle className="security-status" aria-hidden="true" />
+                  ) : (
+                    <FiClock className="security-status" aria-hidden="true" />
+                  )}
                   <div className="security-text">
                     <p className="security-label">{item.label}</p>
                     <p className="security-description">{item.description}</p>
@@ -280,7 +292,7 @@ const Dashboard = ({ user, onLogout }) => {
             <ul className="activity-list">
               {activityTimeline.map((entry) => (
                 <li key={entry.title} className="activity-item">
-                  <span className="activity-icon" aria-hidden="true">{entry.icon}</span>
+                  <entry.Icon className="activity-icon" aria-hidden="true" />
                   <div className="activity-text">
                     <p className="activity-title">{entry.title}</p>
                     <p className="activity-description">{entry.description}</p>

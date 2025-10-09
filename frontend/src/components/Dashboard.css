@@ -55,6 +55,13 @@
   line-height: 1.6;
 }
 
+.inline-icon {
+  margin-left: 10px;
+  vertical-align: middle;
+  font-size: 1em;
+  color: #6366f1;
+}
+
 .header-actions {
   display: flex;
   gap: 12px;
@@ -169,6 +176,12 @@
   gap: 10px 18px;
   color: #475569;
   font-size: 15px;
+}
+
+.profile-contacts .contact-icon {
+  margin-right: 8px;
+  color: #6366f1;
+  vertical-align: middle;
 }
 
 .profile-actions {
