@@ -1,13 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiCalendar, FiShield, FiSettings, FiMail, FiClock, FiCheckCircle, FiSmile, FiAward, FiKey, FiZap } from 'react-icons/fi';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import EditProfile from './EditProfile';
+import Security from './Security';
+import Alerts from './Alerts';
 import './Dashboard.css';
 
 const Dashboard = ({ user, onLogout }) => {
+  const [activeModal, setActiveModal] = useState(null);
+
   const handleLogout = () => {
     onLogout();
   };
+
+  const handleProfileSave = async (profileData) => {
+    // Handle profile save logic here
+    console.log('Saving profile data:', profileData);
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setActiveModal(null);
+  };
+
+  const openEditProfile = () => {
+    console.log('Opening Edit Profile modal');
+    setActiveModal('editProfile');
+  };
+  
+  const openSecurity = () => {
+    console.log('Opening Security modal');
+    setActiveModal('security');
+  };
+  
+  const openAlerts = () => {
+    console.log('Opening Alerts modal');  
+    setActiveModal('alerts');
+  };
+  
+  const closeModal = () => {
+    console.log('Closing modal');
+    setActiveModal(null);
+  };
+
+  // Debug: Log current state
+  console.log('Dashboard render - activeModal:', activeModal);
 
   const fullName = user?.firstName || user?.lastName
     ? `${user?.firstName ?? ''} ${user?.lastName ?? ''}`.trim()
@@ -167,7 +203,11 @@ const Dashboard = ({ user, onLogout }) => {
 
   return (
     <div className="dashboard-container">
-      <Navbar displayName={displayName} />
+            <Navbar 
+        displayName={user?.displayName || user?.name || 'Member'} 
+        onSecurityClick={openSecurity}
+        onAlertsClick={openAlerts}
+      />
 
       <header className="dashboard-header">
         <div className="header-content">
@@ -182,7 +222,7 @@ const Dashboard = ({ user, onLogout }) => {
             </p>
           </div>
           <div className="header-actions">
-            <button type="button" className="outline-button">Edit profile</button>
+            <button type="button" className="outline-button" onClick={openEditProfile}>Edit profile</button>
             <button onClick={handleLogout} className="logout-button">
               Logout
             </button>
@@ -216,12 +256,12 @@ const Dashboard = ({ user, onLogout }) => {
             <div className="action-card">
               <h4>Complete your profile</h4>
               <p>Add more personal details to personalize your experience.</p>
-              <button type="button" className="ghost-button">Update details</button>
+              <button type="button" className="ghost-button" onClick={openEditProfile}>Update details</button>
             </div>
             <div className="action-card secondary">
               <h4>Boost account security</h4>
               <p>Review security settings and enable additional safeguards.</p>
-              <button type="button" className="ghost-button">Security center</button>
+              <button type="button" className="ghost-button" onClick={openSecurity}>Security center</button>
             </div>
           </div>
         </section>
@@ -347,7 +387,7 @@ const Dashboard = ({ user, onLogout }) => {
                 </li>
               ))}
             </ul>
-            <button type="button" className="outline-button compact">Manage alerts</button>
+            <button type="button" className="outline-button compact" onClick={openAlerts}>Manage alerts</button>
           </div>
 
           <div className="panel-card connections-card">
@@ -369,6 +409,89 @@ const Dashboard = ({ user, onLogout }) => {
       </main>
 
       <Footer />
+
+      {/* Modal Components */}
+      {console.log('Checking modals - activeModal:', activeModal)}
+      {activeModal === 'editProfile' && (
+        <>
+          {console.log('Rendering EditProfile modal')}
+          <EditProfile 
+            user={user} 
+            onSave={handleProfileSave} 
+            onClose={closeModal} 
+          />
+        </>
+      )}
+      
+      {activeModal === 'security' && (
+        <>
+          {console.log('Rendering Security modal')}
+          <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.7)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000
+          }}>
+            <div style={{
+              background: 'white',
+              padding: '20px',
+              borderRadius: '10px',
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+              overflow: 'auto'
+            }}>
+              <h2>Security Settings</h2>
+              <p>Test modal is working! Loading Security component...</p>
+              <button onClick={closeModal} style={{marginBottom: '20px'}}>Close Test</button>
+              <Security 
+                user={user} 
+                onClose={closeModal} 
+              />
+            </div>
+          </div>
+        </>
+      )}
+      
+      {activeModal === 'alerts' && (
+        <>
+          {console.log('Rendering Alerts modal')}
+          <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.7)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1000
+          }}>
+            <div style={{
+              background: 'white',
+              padding: '20px',
+              borderRadius: '10px',
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+              overflow: 'auto'
+            }}>
+              <h2>Alert Preferences</h2>
+              <p>Test modal is working! Loading Alerts component...</p>
+              <button onClick={closeModal} style={{marginBottom: '20px'}}>Close Test</button>
+              <Alerts 
+                user={user} 
+                onClose={closeModal} 
+              />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
