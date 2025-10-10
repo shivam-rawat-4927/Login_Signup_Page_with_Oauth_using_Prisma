@@ -2,7 +2,7 @@ import React from 'react';
 import { FaUserCircle, FaTachometerAlt, FaShieldAlt, FaRegBell } from 'react-icons/fa';
 import './Navbar.css';
 
-const Navbar = ({ displayName = 'Member' }) => {
+const Navbar = ({ displayName = 'Member', onSecurityClick, onAlertsClick }) => {
   const firstName = displayName.split(' ')[0];
 
   return (
@@ -22,11 +22,11 @@ const Navbar = ({ displayName = 'Member' }) => {
           <FaTachometerAlt aria-hidden="true" />
           <span>Overview</span>
         </li>
-        <li className="navbar-link">
+        <li className="navbar-link" onClick={onSecurityClick} style={{ cursor: 'pointer' }}>
           <FaShieldAlt aria-hidden="true" />
           <span>Security</span>
         </li>
-        <li className="navbar-link">
+        <li className="navbar-link" onClick={onAlertsClick} style={{ cursor: 'pointer' }}>
           <FaRegBell aria-hidden="true" />
           <span>Alerts</span>
         </li>
