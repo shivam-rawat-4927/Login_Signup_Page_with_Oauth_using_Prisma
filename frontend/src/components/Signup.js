@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaGoogle, FaGithub } from 'react-icons/fa';
 import './Auth.css';
 
 function Signup({ onLogin }) {
@@ -13,6 +14,13 @@ function Signup({ onLogin }) {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:5001/api/auth/google';
+  };
+  const handleGithubLogin = () => {
+    window.location.href = 'http://localhost:5001/api/auth/github';
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -60,6 +68,22 @@ function Signup({ onLogin }) {
         <div className="auth-header">
           <h2>Create an account</h2>
           <p>Welcome! Please fill in the details to get started</p>
+        </div>
+
+        <div className='oauth-buttons'>
+          <button className='oauth-button google-button' onClick={handleGoogleLogin}>
+            <FaGoogle className='oauth-icon' />
+            Continue with Google
+          </button>
+
+          <button className='oauth-button github-button' onClick={handleGithubLogin}>
+            <FaGithub className='oauth-icon' />
+            Continue with GitHub
+          </button>
+        </div>
+
+        <div className='divider'>
+          <span>or</span>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">

@@ -10,11 +10,32 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const userParam = urlParams.get('user');
+
+    if (token && userParam) {
+      try {
+        const user = JSON.parse(decodeURIComponent(userParam));
+        localStorage.setItem('token', token);
+        setIsAuthenticated(true);
+        setUser(user);
+        // clean url
+        window.history.replaceState({}, document.title, window.location.pathname);
+        setLoading(false);
+        return;
+      } catch (error) {
+        console.error('OAuth callback error:', error);
+      }
+    }
+
+    // Existing local storage check
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
       fetch('/api/auth/profile', {
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: { 'Authorization': `Bearer ${storedToken}` }
       })
       .then(response => response.json())
       .then(data => {
@@ -79,9 +100,9 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              // isAuthenticated ?
-              <Dashboard user={user} onLogout={handleLogout} />   
-              // <Navigate to="/login" />
+              isAuthenticated ?
+              <Dashboard user={user} onLogout={handleLogout} /> :
+              <Navigate to="/login" />
             }
           />
           <Route
