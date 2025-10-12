@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaGoogle, FaGithub } from 'react-icons/fa';
 import './Auth.css';
 
 function Login({ onLogin }) {
@@ -44,12 +45,36 @@ function Login({ onLogin }) {
     }
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:5001/api/auth/google';
+  };
+
+  const handleGithubLogin = () => {
+    window.location.href = 'http://localhost:5001/api/auth/github';
+  };
+
   return (
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-header">
           <h2>Welcome Back</h2>
           <p>Log in to your account</p>
+        </div>
+
+        <div className='oauth-buttons'>
+          <button className='oauth-button' onClick={handleGoogleLogin}>
+            <FaGoogle className='oauth-icon' />
+            Continue with Google
+          </button>
+        
+          <button className='oauth-button' onClick={handleGithubLogin}>
+            <FaGithub className='oauth-icon' />
+            Continue with Github
+          </button>
+        </div>
+
+        <div className='divider'>
+          <span>or</span>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
